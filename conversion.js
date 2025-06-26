@@ -35,8 +35,6 @@ Http.onload = (e) => {
       // Convert milliseconds to a Date object
       const displayDate = new Date(milliseconds);
       
-      document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ", " + displayDate + "<br>";
+      document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ",,,,,FALSE,FALSE,,,," + displayDate + "<br>";
     }
-
-
 }
