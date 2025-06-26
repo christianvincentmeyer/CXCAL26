@@ -12,14 +12,31 @@ Http.onload = (e) => {
     res = Http.response;
     eventsJSON = JSON.parse(Http.response);
     
-    console.log(eventsJSON[0].MatchingEvents);
-    console.log(eventsJSON[0].MatchingEvents[0].date);
+    // console.log(eventsJSON[0].MatchingEvents);
+    // console.log(eventsJSON[0].MatchingEvents[0].date);
 
     var eventDate
 
     for(let i = 0; i < eventsJSON[0].MatchingEvents.length; i++) {
       
       eventDate = eventsJSON[0].MatchingEvents[i].EventDate
-      document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ", " + eventDate + "<br>";
+      eventDate = eventDate.split("(");
+      eventDate = eventDate[1]
+      eventDate = eventDate.split("-");
+      eventDate = eventDate[0]
+      eventDate = parseInt(eventDate)
+      // const eventDateObject = new Date(eventDate);
+
+      // displayDate = eventDate.toUTCString();
+
+      const milliseconds = eventDate; // Example: March 15, 2023, 00:00:00 UTC
+
+    
+      // Convert milliseconds to a Date object
+      const displayDate = new Date(milliseconds);
+      
+      document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ", " + displayDate + "<br>";
     }
+
+
 }
