@@ -12,17 +12,14 @@ Http.onload = (e) => {
     res = Http.response;
     eventsJSON = JSON.parse(Http.response);
     
-    console.log(eventsJSON[0].MatchingEvents.length);
+    console.log(eventsJSON[0].MatchingEvents);
+    console.log(eventsJSON[0].MatchingEvents[0].date);
+
+    var eventDate
 
     for(let i = 0; i < eventsJSON[0].MatchingEvents.length; i++) {
-      document.body.innerHTML = document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ", <br>";
+      
+      eventDate = eventsJSON[0].MatchingEvents[i].EventDate
+      document.body.innerHTML += eventsJSON[0].MatchingEvents[i].EventName + ", " + eventDate + "<br>";
     }
 }
-
-// function createCSV() {
-//   document.body.innerHTML = events;
-
-//   console.log(events);
-
-//   console.log('set events csv');
-// }
