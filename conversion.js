@@ -20,6 +20,8 @@ Http.onload = (e) => {
     var regLink
     var eventLat
     var eventLong
+    var eventState
+    var eventRegion
     var directionsURL
 
     for(let i = 0; i < eventsJSON[0].MatchingEvents.length; i++) {
@@ -40,7 +42,19 @@ Http.onload = (e) => {
 
       // Create Google Map Link
       regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
-      regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
+
+      // Assign region
+      eventState = eventsJSON[0].MatchingEvents[i].EventState 
+
+      switch (eventState) {
+        case "NJ":
+        case "NY":
+        case "PA":
+          eventRegion = "North East";
+          break; // Starts next region
+        default:
+          eventRegion = "NA";
+      }
 
       // Get Bike Reg Link
       eventLat = eventsJSON[0].MatchingEvents[i].Latitude
@@ -50,6 +64,6 @@ Http.onload = (e) => {
       // Convert milliseconds to a Date object
       const displayDate = new Date(milliseconds);
       
-      document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + ',' + directionsURL + "<br>";
+      document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + ',' + eventState + ',' + eventRegion + ',' + directionsURL + "<br>";
     }
 }
