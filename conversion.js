@@ -18,7 +18,9 @@ Http.onload = (e) => {
     var eventName
     var eventDate
     var regLink
-
+    var eventLat
+    var eventLong
+    var directionsURL
 
     for(let i = 0; i < eventsJSON[0].MatchingEvents.length; i++) {
 
@@ -37,14 +39,17 @@ Http.onload = (e) => {
       const milliseconds = eventDate; // Example: March 15, 2023, 00:00:00 UTC
 
       // Create Google Map Link
-      
+      regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
+      regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
 
       // Get Bike Reg Link
-      regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
+      eventLat = eventsJSON[0].MatchingEvents[i].Latitude
+      eventLong = eventsJSON[0].MatchingEvents[i].Longitude
+      directionsURL = 'http://maps.google.com/maps/?z=12&t=m&q=loc:' + eventLat + '+' + eventLong
     
       // Convert milliseconds to a Date object
       const displayDate = new Date(milliseconds);
       
-      document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + "<br>";
+      document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + ',' + directionsURL + "<br>";
     }
 }
