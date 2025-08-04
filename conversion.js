@@ -1,4 +1,4 @@
-// import bikeRegData from 'bike-reg-data.json' assert { type: 'json' };
+ // import bikeRegData from 'bike-reg-data.json' assert { type: 'json' };
 // const bikeRegParsed = JSON.parse(bikeRegData);
 
 const Http = new XMLHttpRequest();
@@ -36,9 +36,14 @@ Http.onload = (e) => {
       eventDate = eventDate.split("-");
       eventDate = eventDate[0]
       eventDate = parseInt(eventDate)
+      const milliseconds = eventDate; // Example: March 15, 2023, 00:00:00 UTC
+
+      // Convert milliseconds to a Date object
+      const displayDate = new Date(milliseconds);
+
       // const eventDateObject = new Date(eventDate);
       // displayDate = eventDate.toUTCString();
-      const milliseconds = eventDate; // Example: March 15, 2023, 00:00:00 UTC
+
 
       // Create Google Map Link
       regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
@@ -51,18 +56,77 @@ Http.onload = (e) => {
         case "NY":
         case "PA":
           eventRegion = "North East";
-          break; // Starts next region
+          break; // Starts next region - 3
+        case "ME":
+        case "VT":
+        case "NH":
+        case "MA":
+        case "RI":
+        case "CT":
+          eventRegion = "New England";
+          break; // Starts next region - 6
+        case "DE":
+        case "MD":
+        case "DC":
+        case "VA":
+        case "WV":
+        case "NC":
+          eventRegion = "Mid Atlantic";
+          break; // Starts next region - 6
+        case "SC":
+        case "GA":
+        case "FL":
+          eventRegion = "South East";
+          break; // Starts next region - 3
+        case "ND":
+        case "MN":
+        case "MI":
+        case "WI":
+        case "SD":
+        case "IA":
+        case "NE":
+        case "IL":
+        case "IN":
+        case "OH":
+        case "MO":
+        case "KS":
+        case "KY":
+        case "TN":
+        case "AR":
+          eventRegion = "Midwest";
+          break; // Starts next region - 15
+        case "ID":
+        case "MT":
+        case "WY":
+        case "NV":
+        case "UT":
+        case "CO":
+          eventRegion = "Mountain West";
+          break; // Starts next region - 6
+        case "AZ":
+        case "NM":
+        case "OK":
+        case "TX":
+        case "MS":
+        case "AL":
+        case "LA":
+          eventRegion = "South";
+          break; // Starts next region - 7
+        case "WA":
+        case "OR":
+          eventRegion = "PNW";
+          break; // Starts next region - 2
+        case "CA":
+          eventRegion = "West Coast";
+          break; // Starts next region - 1
         default:
-          eventRegion = "NA";
+          eventRegion = "--";
       }
 
       // Get Bike Reg Link
       eventLat = eventsJSON[0].MatchingEvents[i].Latitude
       eventLong = eventsJSON[0].MatchingEvents[i].Longitude
       directionsURL = 'http://maps.google.com/maps/?z=12&t=m&q=loc:' + eventLat + '+' + eventLong
-    
-      // Convert milliseconds to a Date object
-      const displayDate = new Date(milliseconds);
       
       document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + ',' + eventState + ',' + eventRegion + ',' + directionsURL + "<br>";
     }
