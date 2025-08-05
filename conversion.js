@@ -153,6 +153,6 @@ Http.onload = (e) => {
       // Get Event ID
       eventID = eventsJSON[0].MatchingEvents[i].EventId
       
-      document.body.innerHTML += eventName + "," + displayStartDate + "," + displayEndDate + "," + regLink + ',' + eventState + ',' + eventRegion + ',' + directionsURL + ',' + isMultiDay + ',' + eventID + "<br>";
+      document.body.innerHTML += eventName + "," + displayStartDate + "," + displayEndDate + "," + isMultiDay + ',' + eventID + ',' + regLink + ',' + directionsURL + ' ,' + eventState + ',' + eventRegion + "<br>";
     }
 }
