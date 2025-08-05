@@ -16,34 +16,54 @@ Http.onload = (e) => {
     // console.log(eventsJSON[0].MatchingEvents[0].date);
 
     var eventName
-    var eventDate
+    var eventStartDate
+    var eventEndDate
+    var isMultiDay
     var regLink
     var eventLat
     var eventLong
     var eventState
     var eventRegion
     var directionsURL
+    var eventID
 
     for(let i = 0; i < eventsJSON[0].MatchingEvents.length; i++) {
 
       // Get Event Name
       eventName = eventsJSON[0].MatchingEvents[i].EventName
       
-      // Get Event Date
-      eventDate = eventsJSON[0].MatchingEvents[i].EventDate
-      eventDate = eventDate.split("(");
-      eventDate = eventDate[1]
-      eventDate = eventDate.split("-");
-      eventDate = eventDate[0]
-      eventDate = parseInt(eventDate)
-      const milliseconds = eventDate; // Example: March 15, 2023, 00:00:00 UTC
+
+
+      // Get Event Start Date
+      eventStartDate = eventsJSON[0].MatchingEvents[i].EventDate
+      eventStartDate = eventStartDate.split("(");
+      eventStartDate = eventStartDate[1]
+      eventStartDate = eventStartDate.split("-");
+      eventStartDate = eventStartDate[0]
+      eventStartDate = parseInt(eventStartDate)
+      const millisecondsStart = eventStartDate; // Example: March 15, 2023, 00:00:00 UTC
 
       // Convert milliseconds to a Date object
-      const displayDate = new Date(milliseconds);
+      const displayStartDate = new Date(millisecondsStart);
 
-      // const eventDateObject = new Date(eventDate);
-      // displayDate = eventDate.toUTCString();
+      // Get Event End Date
+      eventEndDate = eventsJSON[0].MatchingEvents[i].EventEndDate
+      eventEndDate = eventEndDate.split("(");
+      eventEndDate = eventEndDate[1]
+      eventEndDate = eventEndDate.split("-");
+      eventEndDate = eventEndDate[0]
+      eventEndDate = parseInt(eventEndDate)
+      const millisecondsEnd = eventEndDate; // Example: March 15, 2023, 00:00:00 UTC
 
+      // Convert milliseconds to a Date object
+      const displayEndDate = new Date(millisecondsEnd);
+
+      // check if event is multiday
+      if(eventStartDate !== eventEndDate){
+        isMultiDay = true
+      }else{
+        isMultiDay = false
+      }
 
       // Create Google Map Link
       regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
@@ -127,7 +147,12 @@ Http.onload = (e) => {
       eventLat = eventsJSON[0].MatchingEvents[i].Latitude
       eventLong = eventsJSON[0].MatchingEvents[i].Longitude
       directionsURL = 'http://maps.google.com/maps/?z=12&t=m&q=loc:' + eventLat + '+' + eventLong
+
+
+      // Get the following info as a way to check the CMS data is correct
+      // Get Event ID
+      eventID = eventsJSON[0].MatchingEvents[i].EventId
       
-      document.body.innerHTML += eventName + ",,,,,FALSE,FALSE,,,," + displayDate + ",," + regLink + ',' + eventState + ',' + eventRegion + ',' + directionsURL + "<br>";
+      document.body.innerHTML += eventName + "," + displayStartDate + "," + displayEndDate + "," + regLink + ',' + eventState + ',' + eventRegion + ',' + directionsURL + ',' + isMultiDay + ',' + eventID + "<br>";
     }
 }
