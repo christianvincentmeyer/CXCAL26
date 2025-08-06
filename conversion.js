@@ -22,6 +22,7 @@ Http.onload = (e) => {
     var regLink
     var eventLat
     var eventLong
+    var eventCity
     var eventState
     var eventRegion
     var directionsURL
@@ -67,6 +68,9 @@ Http.onload = (e) => {
 
       // Create Google Map Link
       regLink = eventsJSON[0].MatchingEvents[i].EventPermalink
+
+      // Assign City
+      eventCity = eventsJSON[0].MatchingEvents[i].EventCity
 
       // Assign region
       eventState = eventsJSON[0].MatchingEvents[i].EventState 
@@ -153,6 +157,6 @@ Http.onload = (e) => {
       // Get Event ID
       eventID = eventsJSON[0].MatchingEvents[i].EventId
       
-      document.body.innerHTML += eventName + "," + displayStartDate + "," + displayEndDate + "," + isMultiDay + ',' + eventID + ',' + regLink + ',' + directionsURL + ' ,' + eventState + ',' + eventRegion + "<br>";
+      document.body.innerHTML += '"' + eventName + '",' + displayStartDate + "," + displayEndDate + "," + isMultiDay + ',' + eventID + ',' + regLink + ',' + directionsURL + ',' + eventCity +',' + eventState + ',' + eventRegion + "<br>";
     }
 }
